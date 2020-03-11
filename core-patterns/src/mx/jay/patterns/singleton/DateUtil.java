@@ -8,11 +8,14 @@ public class DateUtil {
 		
 	}
 	
-	public static synchronized DateUtil getInstance() {
+	public static DateUtil getInstance() {
 		
-		if (instance == null) {
+		synchronized(DateUtil.class) {
 			
-			instance = new DateUtil();
+			if (instance == null) {
+				
+				instance = new DateUtil();
+			}
 		}
 		
 		return instance;
