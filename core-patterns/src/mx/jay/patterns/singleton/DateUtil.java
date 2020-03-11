@@ -2,7 +2,7 @@ package mx.jay.patterns.singleton;
 
 public class DateUtil {
 	
-	private static DateUtil instance;
+	private static volatile DateUtil instance;
 
 	private DateUtil() {
 		
@@ -10,11 +10,15 @@ public class DateUtil {
 	
 	public static DateUtil getInstance() {
 		
-		synchronized(DateUtil.class) {
+		if (instance == null) {
 			
-			if (instance == null) {
+			synchronized(DateUtil.class) {
 				
-				instance = new DateUtil();
+				//This is a double check
+				if (instance == null) {
+					
+					instance = new DateUtil();
+				}
 			}
 		}
 		
